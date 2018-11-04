@@ -4,7 +4,9 @@
     <div v-for="(todo, index) in todos" :key="todo.id" class="todo-item">
       <div class="todo-item-left">
         <div v-if="!todo.editing" @dblclick="editTodo(todo)" class="todo-item-lavel">{{ todo.title }}</div>
-        <input v-else class="todo-item-edit" type="text" v-model="todo.title">
+
+        <input v-else class="todo-item-edit" type="text" v-model="todo.title" @blur="doneEdit(todo)" @keyup.enter="doneEdit(todo)">
+
         </div>
         <div class="remove-item" @click="removeTodo(index)">
           &times;
@@ -55,6 +57,10 @@ export default {
     editTodo(todo) {
       alert('doble clicked')
       todo.editing = true
+    },
+
+    doneEdit(todo) {
+      todo.editing = false
     },
 
     removeTodo(index) {
