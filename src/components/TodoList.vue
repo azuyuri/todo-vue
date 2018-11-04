@@ -3,7 +3,8 @@
     <input type="text" class="todo-input" placeholder="What needs to be done" v-model="newTodo" @keyup.enter="addTodo">
     <div v-for="(todo, index) in todos" :key="todo.id" class="todo-item">
       <div>
-      {{ todo.title }}
+      <div>{{ todo.title }}</div>
+      <input type="text" v-model="todo.title">
       </div>
       <div class="remove-item" @click="removeTodo(index)">
         &times;
