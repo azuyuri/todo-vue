@@ -1,7 +1,7 @@
 <template>
   <div>
     <input type="text" class="todo-input" placeholder="What needs to be done">
-    Todo list goes here
+    Todo list goes here !
   </div>
 </template>
 
