@@ -1,6 +1,7 @@
 <template>
   <div>
     <input type="text" class="todo-input" placeholder="What needs to be done" v-model="newTodo" @keyup.enter="addTodo">
+    <transition-group name="fade" enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
     <div v-for="(todo, index) in todosFiltered" :key="todo.id" class="todo-item">
       <div class="todo-item-left">
 
@@ -14,6 +15,7 @@
           &times;
         </div>
     </div>
+    </transition-group>
 
       <!-- 37:00 -->
       <div class="extra-container">
@@ -29,11 +31,15 @@
         <button :class="{ active: filter == 'active' }" @click="filter = 'active'">Active</button>
         <button :class="{ active: filter == 'completed' }" @click="filter = 'completed'">Completed</button>
       </div>
-
-      <div>
-        <button v-if="showClearCompletedButton" @click="clearCompleted">Clear Completed</button>
-      </div>
       <!-- 43:00 -->
+
+      <!-- 48:28 -->
+      <div>
+        <transition name="fade">
+        <button v-if="showClearCompletedButton" @click="clearCompleted">Clear Completed</button>
+        </transition>
+      </div>
+      <!-- 48:28 -->
 
     </div>
   </div>
@@ -144,6 +150,7 @@ export default {
     this.todos.forEach((todo) => todo.completed =
     event.target.checked)
     },
+    //48:50
     clearCompleted() {
       this.todos = this.todos.filter(todo => !todo.completed)
     }
@@ -152,7 +159,10 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style lang="scss">
+// Animate.cssのCDN
+@import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css");
 
 .todo-input {
     width: 100%;
@@ -170,7 +180,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    animation-duration: 0.3s;
+    animation-duration: 0.3s; //速度
   }
 
   .remove-item {
@@ -233,6 +243,14 @@ export default {
   }
   .active {
     background: lightgreen;
+  }
+
+  //50:25 CSS Transitions
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .2s;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
   }
 
 </style>
