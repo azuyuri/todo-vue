@@ -17,7 +17,7 @@
 
       <!-- 37:00 -->
       <div class="extra-container">
-      <div><label><input type="checkbox" :checked="!anyRemaining"> Check All</label></div>
+      <div><label><input type="checkbox" :checked="!anyRemaining" @change="checkAllTodos"> Check All</label></div>
       <div>{{ remaining }} items left</div>
       <!-- 37:00 -->
 
@@ -52,11 +52,11 @@ export default {
 
   //38:24
   computed: {
-    remaining() {//アイテム数をカウント
+    remaining() { //アイテム数をカウント
       return this.todos.filter(todo => !todo.completed).length
   },
   //40:00
-  anyRemaining() {
+  anyRemaining() { //0itemsなら自動でCheck All有効化
     return this.remaining != 0
     }
   },
@@ -98,7 +98,7 @@ export default {
       todo.editing = false
     },
 
-//31:30
+    //31:30
     cancelEdit(todo) {
       todo.title = this.beforeEditCache
       todo.editing = false
@@ -106,6 +106,12 @@ export default {
 
     removeTodo(index) {
       this.todos.splice(index, 1)
+    },
+
+  //41:50
+  checkAllTodos() { //Check Allを有効化
+    this.todos.forEach((todo) => todo.completed =
+    event.target.checked)
     }
   }
 }
