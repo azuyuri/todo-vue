@@ -5,12 +5,22 @@
       <div class="todo-item-left">
 
         <input type="checkbox" v-model="todo.completed">
+
         <div v-if="!todo.editing" @dblclick="editTodo(todo)" class="todo-item-label" :class="{ completed : todo.completed }">{{ todo.title }}</div>
+
         <input v-else class="todo-item-edit" type="text" v-model="todo.title" @blur="doneEdit(todo)" @keyup.enter="doneEdit(todo)" @keyup.esc="cancelEdit(todo)" v-focus>
         </div>
         <div class="remove-item" @click="removeTodo(index)">
           &times;
         </div>
+    </div>
+
+      <!-- 37:00 -->
+      <div class="extra-container">
+      <div><label><input type="checkbox"> Check All</label></div>
+      <div>{{ remaining }} items left</div>
+      <!-- 37:00 -->
+
     </div>
   </div>
 </template>
@@ -147,6 +157,31 @@ export default {
   .completed {
     text-decoration: line-through;
     color: grey;
+  }
+
+  // 37:40 Check All
+  .extra-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    border-top: 1px solid lightgrey;
+    padding-top: 14px;
+    margin-bottom: 14px;
+  }
+    button {
+    font-size: 14px;
+    background-color: white;
+    appearance: none;
+    &:hover {
+      background: lightgreen;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+  .active {
+    background: lightgreen;
   }
 
 </style>
