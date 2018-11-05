@@ -17,7 +17,7 @@
 
       <!-- 37:00 -->
       <div class="extra-container">
-      <div><label><input type="checkbox"> Check All</label></div>
+      <div><label><input type="checkbox" :checked="!anyRemaining"> Check All</label></div>
       <div>{{ remaining }} items left</div>
       <!-- 37:00 -->
 
@@ -52,8 +52,12 @@ export default {
 
   //38:24
   computed: {
-    remaining() {
+    remaining() {//アイテム数をカウント
       return this.todos.filter(todo => !todo.completed).length
+  },
+  //40:00
+  anyRemaining() {
+    return this.remaining != 0
     }
   },
   directives: {
