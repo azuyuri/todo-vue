@@ -49,6 +49,13 @@ export default {
       ]
     }
   },
+
+  //38:24
+  computed: {
+    remaining() {
+      return this.todos.filter(todo => !todo.completed).length
+    }
+  },
   directives: {
   focus: {
     // ディレクティブ定義
