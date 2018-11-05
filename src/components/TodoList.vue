@@ -3,10 +3,10 @@
     <input type="text" class="todo-input" placeholder="What needs to be done" v-model="newTodo" @keyup.enter="addTodo">
     <div v-for="(todo, index) in todos" :key="todo.id" class="todo-item">
       <div class="todo-item-left">
+
+        <input type="checkbox" v-model="todo.completed">
         <div v-if="!todo.editing" @dblclick="editTodo(todo)" class="todo-item-label">{{ todo.title }}</div>
-
-        <input v-else class="todo-item-edit" type="text" v-model="todo.title" @blur="doneEdit(todo)" @keyup.enter="doneEdit(todo)" v-focus>
-
+        <input v-else class="todo-item-edit" type="text" v-model="todo.title" @blur="doneEdit(todo)" @keyup.enter="doneEdit(todo)" @keyup.esc="cancelEdit(todo)" v-focus>
         </div>
         <div class="remove-item" @click="removeTodo(index)">
           &times;
@@ -22,16 +22,17 @@ export default {
     return {
       newTodo: '',
       idForTodo: 3,
+      beforeEditCache: '',
       todos: [
         {
           'id': 1,
-          'title': 'Finish Vue Screencast',
+          'title': '朝食をきちんととる',
           'completed': false,
           'editing': false,
         },
         {
           'id': 2,
-          'title': 'Take over world',
+          'title': '筋トレをする',
           'completed': false,
           'editing': false,
         },
@@ -64,10 +65,21 @@ export default {
 
     editTodo(todo) {
       // alert('doble clicked')
+      this.beforeEditCache = todo.title
       todo.editing = true
     },
 
     doneEdit(todo) {
+      // 33:00
+      if (todo.title.trim() == '') {
+        todo.title = this.beforeEditCache
+      }
+      todo.editing = false
+    },
+
+//31:30
+    cancelEdit(todo) {
+      todo.title = this.beforeEditCache
       todo.editing = false
     },
 
