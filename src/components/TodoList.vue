@@ -1,7 +1,7 @@
 <template>
   <div>
     <input type="text" class="todo-input" placeholder="What needs to be done" v-model="newTodo" @keyup.enter="addTodo">
-    <div v-for="(todo, index) in todos" :key="todo.id" class="todo-item">
+    <div v-for="(todo, index) in todosFiltered" :key="todo.id" class="todo-item">
       <div class="todo-item-left">
 
         <input type="checkbox" v-model="todo.completed">
@@ -19,7 +19,21 @@
       <div class="extra-container">
       <div><label><input type="checkbox" :checked="!anyRemaining" @change="checkAllTodos"> Check All</label></div>
       <div>{{ remaining }} items left</div>
+      </div>
       <!-- 37:00 -->
+
+      <!-- 43:00 -->
+      <div class="extra-container">
+      <div>
+        <button :class="{ active: filter == 'all' }" @click="filter = 'all'">All</button>
+        <button :class="{ active: filter == 'active' }" @click="filter = 'active'">Active</button>
+        <button :class="{ active: filter == 'completed' }" @click="filter = 'completed'">Completed</button>
+      </div>
+
+      <div>
+        <button v-if="showClearCompletedButton" @click="clearCompleted">Clear Completed</button>
+      </div>
+      <!-- 43:00 -->
 
     </div>
   </div>
@@ -33,6 +47,7 @@ export default {
       newTodo: '',
       idForTodo: 3,
       beforeEditCache: '',
+      filter: 'all',
       todos: [
         {
           'id': 1,
@@ -58,6 +73,22 @@ export default {
   //40:00
   anyRemaining() { //0itemsなら自動でCheck All有効化
     return this.remaining != 0
+    },
+  //45:30
+  todosFiltered() {
+    if (this.filter == 'all') {
+      return this.todos
+    } else if (this.filter == 'active') {
+      return this.todos.filter(todo => !todo.completed)
+    } else if (this.filter == 'completed') {
+      return this.todos.filter(todo => todo.completed)
+    }
+
+    return this.todos
+  },
+
+  showClearCompletedButton() {
+    return this.todos.filter(todo => todo.completed).length > 0
     }
   },
   directives: {
@@ -109,9 +140,12 @@ export default {
     },
 
   //41:50
-  checkAllTodos() { //Check Allを有効化
+    checkAllTodos() { //Check Allを有効化
     this.todos.forEach((todo) => todo.completed =
     event.target.checked)
+    },
+    clearCompleted() {
+      this.todos = this.todos.filter(todo => !todo.completed)
     }
   }
 }
