@@ -3,7 +3,7 @@
     <input type="text" class="todo-input" placeholder="What needs to be done" v-model="newTodo" @keyup.enter="addTodo">
     <div v-for="(todo, index) in todos" :key="todo.id" class="todo-item">
       <div class="todo-item-left">
-        <div v-if="!todo.editing" @dblclick="editTodo(todo)" class="todo-item-lavel">{{ todo.title }}</div>
+        <div v-if="!todo.editing" @dblclick="editTodo(todo)" class="todo-item-label">{{ todo.title }}</div>
 
         <input v-else class="todo-item-edit" type="text" v-model="todo.title" @blur="doneEdit(todo)" @keyup.enter="doneEdit(todo)" v-focus>
 
@@ -97,6 +97,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    animation-duration: 0.3s;
   }
 
   .remove-item {
@@ -105,6 +106,15 @@ export default {
     &:hover {
       color: black;
     }
+  }
+  .todo-item-left { // later
+    display: flex;
+    align-items: center;
+  }
+  .todo-item-label {
+    padding: 10px;
+    border: 1px solid white;
+    margin-left: 12px;
   }
 
 .todo-item-edit {
