@@ -38,10 +38,10 @@ export default {
       ]
     }
   },
-  directives: {
+  directives: {// `v-focus` というローカルディレクティブに登録
   focus: {
     // ディレクティブ定義
-    inserted: function (el) {
+    inserted: function (el) {// 要素にフォーカスを当てる
       el.focus()
     }
   }
@@ -63,7 +63,7 @@ export default {
     },
 
     editTodo(todo) {
-      // alert('doble clicked')
+      alert('doble clicked')
       todo.editing = true
     },
 
