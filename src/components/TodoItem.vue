@@ -61,6 +61,15 @@ export default {
       'beforeEditCache': '',
     }
   },
+  watch: {
+    checkAll() {
+      if (this.checkAll) {
+        this.completed = true
+      } else {
+        this.completed = this.todo.completed
+      }
+    }
+  },
   methods: {
     removeTodo(index) {
       this.$emit('removedTodo', index)
