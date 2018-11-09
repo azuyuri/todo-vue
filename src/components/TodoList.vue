@@ -1,9 +1,26 @@
 // ! 😍Part1 Completed!
 <template>
 <div>
-  <input type="text" class="todo-input" placeholder="What needs to be done" v-model="newTodo" @keyup.enter="addTodo">
-  <transition-group name="fade" enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
-    <todo-item v-for="(todo, index) in todosFiltered" :key="todo.id" :todo="todo" :index="index">
+  <input
+    type="text"
+    class="todo-input"
+    placeholder="What needs to be done"
+    v-model="newTodo"
+    @keyup.enter="addTodo"
+  >
+  <transition-group
+    name="fade"
+    enter-active-class="animated fadeInUp"
+    leave-active-class="animated fadeOutDown"
+  >
+    <todo-item
+      v-for="(todo, index) in todosFiltered"
+      :key="todo.id"
+      :todo="todo"
+      :index="index"
+      @removedTodo="removeTodo"
+      @finishedEdit="finishedEdit"
+    >
       <!-- <div class="todo-item-left">
 
         <input type="checkbox" v-model="todo.completed">
@@ -20,7 +37,15 @@
 
   <!-- 37:00 -->
   <div class="extra-container">
-    <div><label><input type="checkbox" :checked="!anyRemaining" @change="checkAllTodos"> Check All</label></div>
+    <div>
+      <label>
+        <input
+          type="checkbox"
+          :checked="!anyRemaining"
+          @change="checkAllTodos"
+        >
+          Check All
+      </label></div>
     <div>{{ remaining }} items left</div>
   </div>
   <!-- 37:00 -->
@@ -28,16 +53,35 @@
   <!-- 43:00 -->
   <div class="extra-container">
     <div>
-      <button :class="{ active: filter == 'all' }" @click="filter = 'all'">All</button>
-      <button :class="{ active: filter == 'active' }" @click="filter = 'active'">Active</button>
-      <button :class="{ active: filter == 'completed' }" @click="filter = 'completed'">Completed</button>
+      <button
+        :class="{ active: filter == 'all' }"
+        @click="filter = 'all'"
+      >
+        All
+      </button>
+      <button
+        :class="{ active: filter == 'active' }"
+        @click="filter = 'active'"
+      >
+        Active
+      </button>
+      <button
+        :class="{ active: filter == 'completed' }"
+        @click="filter = 'completed'"
+      >
+        Completed
+      </button>
     </div>
     <!-- 43:00 -->
 
     <!-- 48:28 -->
     <div>
       <transition name="fade">
-        <button v-if="showClearCompletedButton" @click="clearCompleted">Clear Completed</button>
+        <button v-if="showClearCompletedButton"
+          @click="clearCompleted"
+        >
+          Clear Completed
+        </button>
       </transition>
     </div>
     <!-- 48:28 -->
@@ -161,9 +205,12 @@ export default {
     //48:50
     clearCompleted() {
       this.todos = this.todos.filter(todo => !todo.completed);
+    },
+    finishedEdit(data) {
+      this.todos.splice(data.index, 1, data.todo)
     }
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
