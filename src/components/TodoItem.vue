@@ -5,6 +5,7 @@
       <input
       type="checkbox"
       v-model="completed"
+      @change="doneEdit"
       >
         <div
           v-if="!editing"
@@ -45,6 +46,10 @@ export default {
     index: {
       type: Number,
       required: true,
+    },
+    checkAll: {
+      type: Boolean,
+      required: true,
     }
   },
   data() { //!クリック時のイベント設定
@@ -61,29 +66,28 @@ export default {
       this.$emit('removedTodo', index)
     },
     editTodo() {
-      // alert('doble clicked')
-      this.beforeEditCache = this.title;
-      this.editing = true;
+      this.beforeEditCache = this.title
+      this.editing = true
     },
     doneEdit() {
       // 33:00
-      if (this.title.trim() == "") {
-        this.title = this.beforeEditCache;
+      if (this.title.trim() == '') {
+        this.title = this.beforeEditCache
       }
-      this.editing = false;
-      this.$emit('finishEdit', {
-        'index' : this.index,
+      this.editing = false
+      this.$emit('finishedEdit', {
+        'index': this.index,
         'todo': {
           'id': this.id,
           'title': this.title,
           'completed': this.completed,
-          'editing': this. editing,
+          'editing': this.editing,
         }
       })
     },
     cancelEdit() {
-      this.title = this.beforeEditCache;
-      this.editing = false;
+      this.title = this.beforeEditCache
+      this.editing = false
     },
   }
 }

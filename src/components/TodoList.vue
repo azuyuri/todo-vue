@@ -18,6 +18,7 @@
       :key="todo.id"
       :todo="todo"
       :index="index"
+      :checkAll="!anyRemaining"
       @removedTodo="removeTodo"
       @finishedEdit="finishedEdit"
     >
@@ -101,10 +102,10 @@ export default {
 
   data() {
     return {
-      newTodo: "",
+      newTodo: '',
       idForTodo: 3,
-      beforeEditCache: "",
-      filter: "all",
+      beforeEditCache: '',
+      filter: 'all',
       todos: [{
           id: 1,
           title: "朝食をきちんととる",
@@ -153,7 +154,7 @@ export default {
     focus: {
       // ディレクティブ定義
       inserted: function (el) {
-        el.focus();
+        el.focus()
       }
     }
   },
@@ -174,27 +175,26 @@ export default {
     },
 
     editTodo(todo) {
-      // alert('doble clicked')
-      this.beforeEditCache = todo.title;
-      todo.editing = true;
+      this.beforeEditCache = todo.title
+      todo.editing = true
     },
 
     doneEdit(todo) {
       // 33:00
       if (todo.title.trim() == "") {
-        todo.title = this.beforeEditCache;
+        todo.title = this.beforeEditCache
       }
-      todo.editing = false;
+      todo.editing = false
     },
 
     //31:30
     cancelEdit(todo) {
-      todo.title = this.beforeEditCache;
-      todo.editing = false;
+      todo.title = this.beforeEditCache
+      todo.editing = false
     },
 
     removeTodo(index) {
-      this.todos.splice(index, 1);
+      this.todos.splice(index, 1)
     },
 
     //41:50
@@ -204,7 +204,7 @@ export default {
     },
     //48:50
     clearCompleted() {
-      this.todos = this.todos.filter(todo => !todo.completed);
+      this.todos = this.todos.filter(todo => !todo.completed)
     },
     finishedEdit(data) {
       this.todos.splice(data.index, 1, data.todo)
