@@ -139,14 +139,7 @@ export default {
       return this.todos.filter(todo => todo.completed).length > 0;
     }
   },
-  directives: {
-    focus: {
-      // ディレクティブ定義
-      inserted: function (el) {
-        el.focus()
-      }
-    }
-  },
+
   methods: {
     addTodo() {
       if (this.newTodo.trim().length == 0) {
@@ -161,25 +154,6 @@ export default {
 
       this.newTodo = "";
       this.idForTodo++;
-    },
-
-    editTodo(todo) {
-      this.beforeEditCache = todo.title
-      todo.editing = true
-    },
-
-    doneEdit(todo) {
-      // 33:00
-      if (todo.title.trim() == "") {
-        todo.title = this.beforeEditCache
-      }
-      todo.editing = false
-    },
-
-    //31:30
-    cancelEdit(todo) {
-      todo.title = this.beforeEditCache
-      todo.editing = false
     },
 
     removeTodo(index) {
