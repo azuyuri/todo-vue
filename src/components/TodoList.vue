@@ -19,8 +19,6 @@
       :todo="todo"
       :index="index"
       :checkAll="!anyRemaining"
-      @removedTodo="removeTodo"
-      @finishedEdit="finishedEdit"
     >
     </todo-item>
   </transition-group>
