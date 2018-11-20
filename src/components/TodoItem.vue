@@ -67,6 +67,10 @@ export default {
   created() {
     eventBus.$on('pluralize', this.handlePluralize)
   },
+  // ! イベントリスナーを削除する
+  beforeDestroy() {
+    eventBus.$off('pluralize', this.handlePluralize)
+  },
   watch: {
     checkAll() {
     //   if (this.checkAll) {
@@ -117,7 +121,7 @@ export default {
       eventBus.$emit('pluralize')
     },
     handlePluralize() {
-      this.title = this.title + 's'
+      this.title = this.title + '🔥'
       eventBus.$emit('finishedEdit', { //! doneEditからコピー
         'index': this.index,
         'todo': {
