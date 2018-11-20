@@ -109,6 +109,10 @@ export default {
       ]
     };
   },
+  created() {
+    eventBus.$on('removedTodo', (index) => this.removeTodo(index))
+    eventBus.$on('finishedEdit', (data) => this.finishedEdit(data))
+  },
 
   //38:24
   computed: {
