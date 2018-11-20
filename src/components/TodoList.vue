@@ -67,7 +67,8 @@
     <!-- 48:28 -->
     <div>
       <transition name="fade">
-        <button v-if="showClearCompletedButton"
+        <button
+        v-if="showClearCompletedButton"
           @click="clearCompleted"
         >
           Clear Completed
@@ -254,9 +255,9 @@ export default {
 }
 
 button {
-  font-size: 14px;
-  background-color: white;
-  appearance: none;
+  // font-size: 16px;
+  // background-color: white;
+  // appearance: none;
 
   &:hover {
     background: lightgreen;
